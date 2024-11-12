@@ -10,7 +10,7 @@ import { Textarea } from '@/components/ui/textarea';
 import SubmitButton from '@/components/SubmitButton';
 import Container from '@/components/Container';
 
-import { formAction } from '@/app/actions';
+import { formCreateAction } from '@/app/actions';
 
 export default function Home() {
 	const [state, setState] = useState('ready');
@@ -43,7 +43,7 @@ export default function Home() {
 				<h1 className="text-3xl font-semibold mb-4">Create Invoice</h1>
 
 				<Form
-					action={formAction}
+					action={formCreateAction}
 					onSubmit={handleOnSubmit}
 					className="grid gap-4 max-w-xs"
 				>

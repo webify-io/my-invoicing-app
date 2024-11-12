@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 
 const SubmitButton = () => {
 	const { pending } = useFormStatus();
-	console.log('Pending State:', pending);
+	//console.log('Pending State:', pending);
 	return (
 		<Button className="relative w-full font-semibold">
 			<span className={pending ? 'text-transparent' : ''}>Submit</span>

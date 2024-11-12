@@ -1,5 +1,7 @@
 import { db } from '@/db';
-import { Invoices } from '@/db/schema';
+import { Customers, Invoices } from '@/db/schema';
+import { auth } from '@clerk/nextjs/server';
+import { eq, and, isNull } from 'drizzle-orm';
 
 import {
 	Table,
@@ -18,7 +20,32 @@ import Link from 'next/link';
 import { cn } from '@/lib/utils';
 
 export default async function Home() {
-	const results = await db.select().from(Invoices);
+	const { userId, orgId } = auth();
+
+	if (!userId) return;
+
+	let results;
+
+	if (orgId) {
+		results = await db
+			.select()
+			.from(Invoices)
+			.innerJoin(Customers, eq(Invoices.customerId, Customers.id))
+			.where(eq(Invoices.organizationId, orgId));
+	} else {
+		results = await db
+			.select()
+			.from(Invoices)
+			.innerJoin(Customers, eq(Invoices.customerId, Customers.id))
+			.where(and(eq(Invoices.userId, userId), isNull(Invoices.organizationId)));
+	}
+
+	const invoices = results?.map(({ invoices, customers }) => {
+		return {
+			...invoices,
+			customer: customers,
+		};
+	});
 
 	return (
 		<main className="h-full">
@@ -48,7 +75,7 @@ export default async function Home() {
 						</TableRow>
 					</TableHeader>
 					<TableBody>
-						{results.map((result) => {
+						{invoices.map((result) => {
 							return (
 								<TableRow key={result.id}>
 									<TableCell className="font-medium text-left p-0">
@@ -72,7 +99,7 @@ export default async function Home() {
 											href={`/invoices/${result.id}`}
 											className="block font-semibold p-4"
 										>
-											Jerry G. Rickson
+											{result.customer.name}
 										</Link>
 									</TableCell>
 									<TableCell className="text-left p-0">
@@ -80,7 +107,7 @@ export default async function Home() {
 											href={`/invoices/${result.id}`}
 											className="block text-black/40 p-4"
 										>
-											jrickson@multimediastudio.com
+											{result.customer.email}
 										</Link>
 									</TableCell>
 									<TableCell className="text-center p-0">
