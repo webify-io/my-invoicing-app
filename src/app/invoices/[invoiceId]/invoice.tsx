@@ -27,7 +27,8 @@ import {
 import { Button } from '@/components/ui/button';
 import { AVAILABLE_STATUSES } from '@/data/invoice';
 import { updateStatusAction, deleteInvoiceAction } from '@/app/actions';
-import { ChevronDown, Ellipsis, Trash2 } from 'lucide-react';
+import { ChevronDown, CreditCard, Ellipsis, Trash2 } from 'lucide-react';
+import Link from 'next/link';
 
 interface InvoiceProps {
 	invoice: typeof Invoices.$inferSelect & {
@@ -106,6 +107,16 @@ export default function Invoice({ invoice }: InvoiceProps) {
 									</Button>
 								</DropdownMenuTrigger>
 								<DropdownMenuContent>
+									<DropdownMenuItem>
+										<Link
+											href={`/invoices/${invoice.id}/payment`}
+											className="flex gap-2 items-center"
+										>
+											<CreditCard className="w-4 h-auto" />
+											Payment
+										</Link>
+									</DropdownMenuItem>
+
 									<DropdownMenuItem>
 										<DialogTrigger asChild>
 											<button className="flex gap-2 items-center">

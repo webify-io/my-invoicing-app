@@ -10,10 +10,10 @@ const Footer = () => {
 					Created by
 					<Link
 						href="https://www.webify.org.za/"
-						className="font-semibold hover:text-black/30"
+						target="_blank"
+						rel="noopener noreferrer"
 					>
-						{' '}
-						Webify{' '}
+						<span className="font-semibold hover:text-black/30"> Webify </span>
 					</Link>
 					with Next.js, Xata and Clerk.
 				</p>
