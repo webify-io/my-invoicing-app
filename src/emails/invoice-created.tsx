@@ -6,7 +6,6 @@ import {
 	Heading,
 	Hr,
 	Html,
-	Img,
 	Link,
 	Preview,
 	Section,
@@ -56,11 +55,11 @@ WebifyInvoiceEmail.PreviewProps = {
 
 export default WebifyInvoiceEmail;
 
-const logo = {
+/* const logo = {
 	borderRadius: 21,
 	width: 42,
 	height: 42,
-};
+}; */
 
 const main = {
 	backgroundColor: '#ffffff',
@@ -116,7 +115,7 @@ const hr = {
 	margin: '42px 0 26px',
 };
 
-const code = {
+/* const code = {
 	fontFamily: 'monospace',
 	fontWeight: '700',
 	padding: '1px 4px',
@@ -125,4 +124,4 @@ const code = {
 	fontSize: '21px',
 	borderRadius: '4px',
 	color: '#3c4149',
-};
+}; */
