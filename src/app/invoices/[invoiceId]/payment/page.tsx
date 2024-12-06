@@ -48,9 +48,8 @@ export default async function InvoicePage({
 	}
 
 	if (isSuccess) {
-		const { payment_status } = await stripe.checkout.sessions.retrieve(
-			sessionId
-		);
+		const { payment_status } =
+			await stripe.checkout.sessions.retrieve(sessionId);
 
 		if (payment_status !== 'paid') {
 			isError = true;
